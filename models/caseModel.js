@@ -37,6 +37,8 @@ exports.createNewCase = (req, res) => {                         // This function
     });
 };
 
+
+
 // Function to GET all cases
 exports.getAllCases = (req, res) => {
   Case.find()                                                           // find all instances of the "Case" model in the database
@@ -49,3 +51,33 @@ exports.getAllCases = (req, res) => {
       });
     });
 };
+
+
+
+// Function to GET one specific cases
+exports.getCasesById = (req, res) => {
+  Case.findById(req.params.id)                                                       
+    .then((data) => {                                                  
+      res.status(200).json(data);                                      
+    })
+    .catch((err) => {                                                   
+      res.status(500).json({                                            
+        message: 'Something went wrong when trying to get the specific cases',
+      });
+    });
+};
+
+//Låt följande stå, ska dubbelkolla en sak med jocke.
+
+// exports.getCasesById = (req, res) => {
+//   const id = req.params.id;
+//   Case.findById(id)
+//     .then((data) => {
+//       res.status(200).json(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).json({
+//         message: 'Something went wrong when trying to get the specific cases',
+//       });
+//     });
+// };
