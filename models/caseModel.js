@@ -81,3 +81,31 @@ exports.getCasesById = (req, res) => {
 //       });
 //     });
 // };
+
+
+//Gör en delete med id
+
+exports.deleteCase = (req, res) => {
+
+  Case.findByIdAndDelete(req.params.id)
+  .then(data => {
+    if(!data) {
+      res.status(404).json({
+        message: 'Could not find the specific case'
+      })
+      return
+    }
+    //returnerar id om vi vill använda den för front end
+    res.status(200).json({
+      id: data._id
+    })
+
+  })
+
+    .catch( () => {
+      res.status(500).json({
+        message: 'Something went wrong'
+      })
+    })
+
+}

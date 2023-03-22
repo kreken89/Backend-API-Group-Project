@@ -17,6 +17,7 @@ router.get('/:id', caseModel.getCasesById);
 
 
 // DELETE
+router.delete('/:id', caseModel.deleteCase);
 
 
 
