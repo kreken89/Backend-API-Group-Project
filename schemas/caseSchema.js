@@ -7,14 +7,14 @@ const caseSchema = mongoose.Schema(
       type: String,
       required: [true, 'You need to enter an email'],
     },
-    // subject: {
-    //   type: String,
-    //   required: [true, 'You need to enter a subject'],
-    // },
-    // message: {
-    //   type: String,
-    //   required: [true, 'You need to enter a message'],
-    // },
+    subject: {
+      type: String,
+      required: [true, 'You need to enter a subject'],
+    },
+    message: {
+      type: String,
+      required: [true, 'You need to enter a message'],
+    },
   },
   { timestamps: true } // Timestamps: true gives oss createdAt and updatedAt automatically
 ); 

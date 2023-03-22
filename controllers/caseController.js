@@ -8,7 +8,7 @@ router.post('/', caseModel.createNewCase)
 
 
 // READ
-
+router.get('/', caseModel.getAllCases)
 
 
 // UPDATE
