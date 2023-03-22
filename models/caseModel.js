@@ -24,7 +24,7 @@ exports.createNewCase = (req, res) => {                         // This function
     });
     return;
   }
-  Case.create({ email, subject, message })                       // If the requested properties (email, subject, message) is present, it creates a new case with the email.
+  Case.create({ email, subject, message, status: 1 })                       // If the requested properties (email, subject, message) is present, it creates a new case with the email.
     .then((data) => {
       res.status(201).json(data);                                // If the case creation is successful, it returns a 201 status code and the case data.
     })
