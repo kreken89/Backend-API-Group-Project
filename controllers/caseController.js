@@ -9,6 +9,7 @@ router.post('/', caseModel.createNewCase)
 
 // READ
 router.get('/', caseModel.getAllCases)
+router.get('/:id', caseModel.getCasesById);
 
 
 // UPDATE

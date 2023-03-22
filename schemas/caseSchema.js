@@ -20,7 +20,7 @@ const caseSchema = mongoose.Schema(
       default: 1,
     },
   },
-  { timestamps: true } // Timestamps: true gives oss createdAt and updatedAt automatically
+  { timestamps: true } // Timestamps: true - gives oss createdAt and updatedAt automatically
 ); 
 
 module.exports = mongoose.model('Case', caseSchema); // Export the model based on the schema, to be used in other parts of the application
