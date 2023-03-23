@@ -133,6 +133,44 @@ exports.updateCase = (req, res) => {
     })
 }
 
+//kommentare case 
+exports.commentCase = async (req, res) => {
+  const caseId = req.params.id;
+  const { email, message } = req.body;
+
+  try {
+    const existingCase = await Case.findById(caseId);
+
+    if (!existingCase) {
+      return res.status(404).send('Case not found');
+    }
+
+    if (!message) {
+      res.status(400).json({
+        message: 'You need to enter a new message'
+      })
+      return
+    }
+    const newComment = {
+      case: caseId,
+      message,
+      email: email,
+      createdAt: Date.now()
+    };
+
+    existingCase.comments.push(newComment);
+    await existingCase.save();
+    res.status(201).json(existingCase);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+};
+
+
+
+
 
 
 

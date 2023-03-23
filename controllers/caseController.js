@@ -5,6 +5,7 @@ const caseModel = require('../models/caseModel.js');
 
 // CREATE
 router.post('/', caseModel.createNewCase)
+router.post('/:id/comments', caseModel.commentCase)
 
 
 // READ

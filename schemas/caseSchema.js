@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'); // Import the Mongoose package to interact with MongoDB
-                                  
+
 // Define the schema for a "case" document
 const caseSchema = mongoose.Schema(
   {
@@ -19,9 +19,18 @@ const caseSchema = mongoose.Schema(
       type: Number,
       default: 1,
     },
+    comments: [{
+      case: String,
+      message: String,
+      email: String,
+      createdAt: {
+        type: Date,
+      }
+    }]
   },
-  { timestamps: true } // Timestamps: true - gives oss createdAt and updatedAt automatically
-); 
+  { timestamps: true }
+);
+
 
 module.exports = mongoose.model('Case', caseSchema); // Export the model based on the schema, to be used in other parts of the application
 
