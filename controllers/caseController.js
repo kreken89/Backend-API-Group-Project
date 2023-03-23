@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const caseModel = require('../models/caseModel');
+const caseModel = require('../models/caseModel.js');
 
 
 
@@ -13,7 +13,7 @@ router.get('/:id', caseModel.getCasesById);
 
 
 // UPDATE
-
+router.put('/:id/', caseModel.updateCase);
 
 
 // DELETE

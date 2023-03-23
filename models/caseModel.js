@@ -11,7 +11,7 @@ exports.createNewCase = (req, res) => {                         // This function
     return;
   }
   const { subject } = req.body;
-  if (!subject) {                                                 
+  if (!subject) {
     res.status(400).json({
       message: 'You need to enter a subject',
     });
@@ -56,12 +56,12 @@ exports.getAllCases = (req, res) => {
 
 // Function to GET one specific cases
 exports.getCasesById = (req, res) => {
-  Case.findById(req.params.id)                                                       
-    .then((data) => {                                                  
-      res.status(200).json(data);                                      
+  Case.findById(req.params.id)
+    .then((data) => {
+      res.status(200).json(data);
     })
-    .catch((err) => {                                                   
-      res.status(500).json({                                            
+    .catch((err) => {
+      res.status(500).json({
         message: 'Something went wrong when trying to get the specific cases',
       });
     });
@@ -88,24 +88,51 @@ exports.getCasesById = (req, res) => {
 exports.deleteCase = (req, res) => {
 
   Case.findByIdAndDelete(req.params.id)
-  .then(data => {
-    if(!data) {
-      res.status(404).json({
-        message: 'Could not find the specific case'
+    .then(data => {
+      if (!data) {
+        res.status(404).json({
+          message: 'Could not find the specific case'
+        })
+        return
+      }
+      //returnerar id om vi vill använda den för front end
+      res.status(200).json({
+        id: data._id
       })
-      return
-    }
-    //returnerar id om vi vill använda den för front end
-    res.status(200).json({
-      id: data._id
     })
-
-  })
-
-    .catch( () => {
+    .catch(() => {
       res.status(500).json({
         message: 'Something went wrong'
       })
     })
-
 }
+
+exports.updateCase = (req, res) => {
+  const { status } = req.body;
+  if (!status) {
+    res.status(400).json({
+      message: 'You need to enter a new status'
+    })
+    return
+  }
+  Case.findByIdAndUpdate(req.params.id, { status }, { new: true })
+    .then(Case => {
+      if (!Case) {
+        res.status(404).json({
+          message: 'Could not find that case'
+        })
+        return
+      }
+      res.status(200).json(Case)
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: 'Something went wrong when updating the case status',
+        err: err.message
+      })
+    })
+}
+
+
+
+
