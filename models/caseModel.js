@@ -106,7 +106,7 @@ exports.deleteCase = (req, res) => {
       })
     })
 }
-
+//Updatera status på ett case > "status": # med PUT
 exports.updateCase = (req, res) => {
   const { status } = req.body;
   if (!status) {
