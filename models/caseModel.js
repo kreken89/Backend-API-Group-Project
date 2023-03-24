@@ -1,4 +1,4 @@
-const Case = require('../schemas/caseSchema');                  // This code exports a function that creates a new case with an email address. // It requires the caseSchema module, which is located in a parent directory.
+const { Case } = require('../schemas/caseSchema');                  // This code exports a function that creates a new case with an email address. // It requires the caseSchema module, which is located in a parent directory.
 
 // Function to POST a new case
 exports.createNewCase = (req, res) => {                         // This function expects a request object and a response object as arguments. It destructures the email property from the request body.
@@ -24,7 +24,9 @@ exports.createNewCase = (req, res) => {                         // This function
     });
     return;
   }
-  Case.create({ email, subject, message, status: { _id:1, statusName: 'Ej påbörjad' } })    // If the requested properties (email, subject, message) is present, it creates a new case with the email, it will also include the status field automatically with default status 1 "Ej påbörjad" on all cases
+  const { comments } = req.body
+
+  Case.create({ email, subject, message, status: { _id:1, statusName: 'Ej påbörjad' }, comments })    // If the requested properties (email, subject, message) is present, it creates a new case with the email, it will also include the status field automatically with default status 1 "Ej påbörjad" on all cases
     .then((data) => {
       res.status(201).json(data);                                // If the case creation is successful, it returns a 201 status code and the case data.
     })
@@ -41,7 +43,9 @@ exports.createNewCase = (req, res) => {                         // This function
 
 // Function to GET all cases
 exports.getAllCases = (req, res) => {
-  Case.find()                                                           // find all instances of the "Case" model in the database
+  Case.find()
+    .populate('comments')
+    .exec()                                                         // find all instances of the "Case" model in the database
     .then((cases) => {                                                  // once the instances are found...
       res.status(200).json(cases);                                      // return a JSON response with a success status code (200) and the instances found
     })
@@ -56,7 +60,9 @@ exports.getAllCases = (req, res) => {
 
 // Function to GET one specific cases
 exports.getCasesById = (req, res) => {
-  Case.findById(req.params.id)                                                       
+  Case.findById(req.params.id)
+    .populate('comments')
+    .exec()                                                         // find all instances of the "Case" model in the database                                                       
     .then((data) => {                                                  
       res.status(200).json(data);                                      
     })

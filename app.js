@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // CONTROLLERS
 app.use('/api/cases', require('./controllers/caseController'))
+app.use('/api/comments', require('./controllers/commentController'))
 
 // Exporting the app so it can be used in other modules
 module.exports = app;
