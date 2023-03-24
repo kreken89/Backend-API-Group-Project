@@ -3,9 +3,6 @@ const mongoose = require('mongoose'); // Import the Mongoose package to interact
 // Define the schema for a "case" document
 const caseSchema = mongoose.Schema(
   {
-    // _id:{ 
-    //   type: mongoose.Schema.Types.ObjectId 
-    // },
     email: {
       type: String,
       required: [true, 'You need to enter an email'],
@@ -37,26 +34,5 @@ const caseSchema = mongoose.Schema(
 ); 
 
 
-
-const commentSchema = mongoose.Schema(
-  {
-    caseId: {
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: 'Case'
-    },
-    email: {
-      type: String,
-      required: [true, 'You need to enter an email'],
-    },
-    message: {
-      type: String,
-      required: [true, 'You need to enter a message'],
-    },
-
-  },
-  { timestamps: true } // Timestamps: true - gives oss createdAt and updatedAt automatically
-);
-
 module.exports = mongoose.model('Case', caseSchema); // Export the model based on the schema, to be used in other parts of the application
-module.exports = mongoose.model('Comment', commentSchema)
 

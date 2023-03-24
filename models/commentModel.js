@@ -1,4 +1,4 @@
-const { Comment } = require('../schemas/caseSchema')
+const Comment = require('../schemas/commentSchema')
 
 exports.createNewComment = (req, res) => {
 

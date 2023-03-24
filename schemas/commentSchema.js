@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 
 const commentSchema = mongoose.Schema(
   {
-    caseId: {
-      type: String, 
-      required: true
-    },
     email: {
       type: String,
       required: [true, 'You need to enter an email'],
@@ -14,7 +10,11 @@ const commentSchema = mongoose.Schema(
       type: String,
       required: [true, 'You need to enter a message'],
     },
-
+    caseId: {
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Case'
+    },
+    
   },
   { timestamps: true } // Timestamps: true - gives oss createdAt and updatedAt automatically
 ); 

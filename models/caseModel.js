@@ -1,4 +1,4 @@
-const { Case } = require('../schemas/caseSchema');                  // This code exports a function that creates a new case with an email address. // It requires the caseSchema module, which is located in a parent directory.
+const Case = require('../schemas/caseSchema');                  // This code exports a function that creates a new case with an email address. // It requires the caseSchema module, which is located in a parent directory.
 
 // Function to POST a new case
 exports.createNewCase = (req, res) => {                         // This function expects a request object and a response object as arguments. It destructures the email property from the request body.
@@ -42,8 +42,8 @@ exports.createNewCase = (req, res) => {                         // This function
 // Function to GET all cases
 exports.getAllCases = (req, res) => {
   Case.find()
-    .populate('comments')
-    .exec()                                                         // find all instances of the "Case" model in the database
+    // .populate('comments')
+    // .exec()                                                         // find all instances of the "Case" model in the database
     .then((cases) => {                                                  // once the instances are found...
       res.status(200).json(cases);                                      // return a JSON response with a success status code (200) and the instances found
     })
@@ -56,12 +56,16 @@ exports.getAllCases = (req, res) => {
 
 
 
+
+
 // Function to GET one specific cases
 exports.getCasesById = (req, res) => {
-  Case.findById(req.params.id)                                                       
-    .then((data) => {                                                  
-      res.status(200).json(data);                                      
-    })
+  Case.findById(req.params.id) 
+  // .populate('comments')
+  // .exec()                                                        
+  .then((data) => {                                                  
+    res.status(200).json(data);                                      
+  })
     .catch((err) => {
       res.status(500).json({
         message: 'Something went wrong when trying to get the specific cases',
