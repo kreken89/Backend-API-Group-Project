@@ -24,7 +24,7 @@ exports.createNewCase = (req, res) => {                         // This function
     });
     return;
   }
-  Case.create({ email, subject, message, status: 1 })                       // If the requested properties (email, subject, message) is present, it creates a new case with the email.
+  Case.create({ email, subject, message, status: { _id:1, statusName: 'Ej påbörjad' } })    // If the requested properties (email, subject, message) is present, it creates a new case with the email, it will also include the status field automatically with default status 1 "Ej påbörjad" on all cases
     .then((data) => {
       res.status(201).json(data);                                // If the case creation is successful, it returns a 201 status code and the case data.
     })
@@ -66,22 +66,6 @@ exports.getCasesById = (req, res) => {
       });
     });
 };
-
-//Låt följande stå, ska dubbelkolla en sak med jocke.
-
-// exports.getCasesById = (req, res) => {
-//   const id = req.params.id;
-//   Case.findById(id)
-//     .then((data) => {
-//       res.status(200).json(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).json({
-//         message: 'Something went wrong when trying to get the specific cases',
-//       });
-//     });
-// };
-
 
 //Gör en delete med id
 
