@@ -16,9 +16,15 @@ const caseSchema = mongoose.Schema(
       required: [true, 'You need to enter a message'],
     },
     status: {
-      type: Number,
-      default: 1,
-    },
+            _id: {
+            type: Number,
+            default: 1,
+          },
+          statusName: {
+              type: String,
+              required: true,
+            },
+    }
   },
   { timestamps: true } // Timestamps: true - gives oss createdAt and updatedAt automatically
 ); 
