@@ -41,7 +41,9 @@ exports.createNewCase = (req, res) => {                         // This function
 
 // Function to GET all cases
 exports.getAllCases = (req, res) => {
-  Case.find()                                                           // find all instances of the "Case" model in the database
+  Case.find()
+    // .populate('comments')
+    // .exec()                                                         // find all instances of the "Case" model in the database
     .then((cases) => {                                                  // once the instances are found...
       res.status(200).json(cases);                                      // return a JSON response with a success status code (200) and the instances found
     })
@@ -54,12 +56,16 @@ exports.getAllCases = (req, res) => {
 
 
 
+
+
 // Function to GET one specific cases
 exports.getCasesById = (req, res) => {
-  Case.findById(req.params.id)
-    .then((data) => {
-      res.status(200).json(data);
-    })
+  Case.findById(req.params.id) 
+  // .populate('comments')
+  // .exec()                                                        
+  .then((data) => {                                                  
+    res.status(200).json(data);                                      
+  })
     .catch((err) => {
       res.status(500).json({
         message: 'Something went wrong when trying to get the specific cases',
