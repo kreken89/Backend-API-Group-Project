@@ -19,7 +19,6 @@ exports.createNewComment = (req, res) => {
     return;
   }
 
-
   const { message } = req.body;
   if (!message) {
     res.status(400).json({
@@ -28,13 +27,32 @@ exports.createNewComment = (req, res) => {
     return;
   }
 
-  Comment.create({ email, message, caseId })
-  .then((data) => {
-      Case.findByIdAndUpdate(caseId,{ $push: {comments: data._id}})
-    .then(() => {
-      res.status(201).json(data);
-    })
+  // Comment.create({ email, message, caseId })
+  // .then((data) => {
+  //     Case.findByIdAndUpdate(caseId,{ $push: {comments: data._id}})
+  //   .then(() => {
+  //     res.status(201).json(data);
+  //   })
+  // })
+
+Comment.create({ email, message, caseId })
+  .then((comment) => {
+    Case.findById(caseId)
+      .then((data) => {
+        data.comments.push(comment._id);
+        return data.save();
+      })
+      .then(() => {
+        res.status(201).json(comment);
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: 'Something went wrong when updating the case',
+          err: err.message,
+        });
+      });
   })
+
   .catch((err) => {
     res.status(500).json({
       message: 'Something went wrong when creating the comment',
