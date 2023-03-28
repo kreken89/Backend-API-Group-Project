@@ -35,6 +35,14 @@ exports.createNewComment = (req, res) => {
   //   })
   // })
 
+  // .catch((err) => {
+  //   res.status(500).json({
+  //     message: 'Something went wrong when creating the comment',
+  //     err: err.message,
+  //   });
+  //   return;
+  // });
+
 Comment.create({ email, message, caseId })
   .then((comment) => {
     Case.findById(caseId)
@@ -52,16 +60,7 @@ Comment.create({ email, message, caseId })
         });
       });
   })
-
-  .catch((err) => {
-    res.status(500).json({
-      message: 'Something went wrong when creating the comment',
-      err: err.message,
-    });
-    return;
-  });
 }
-
 
 exports.getComments = (req, res) => {
   Comment.find()
