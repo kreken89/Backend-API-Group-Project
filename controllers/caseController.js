@@ -4,11 +4,11 @@ const caseModel = require('../models/caseModel');
 
 
 // CREATE
-router.post('/', caseModel.createNewCase)
+router.post('/', caseModel.createNewCase);
 
 
 // READ
-router.get('/', caseModel.getAllCases)
+router.get('/', caseModel.getAllCases);
 router.get('/statuses', caseModel.getStatuses);
 router.get('/:id', caseModel.getCasesById);
 

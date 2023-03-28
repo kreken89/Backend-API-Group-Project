@@ -1,4 +1,5 @@
 const Comment = require('../schemas/commentSchema')
+const Case = require('../schemas/caseSchema')
 
 exports.createNewComment = (req, res) => {
 
@@ -29,7 +30,10 @@ exports.createNewComment = (req, res) => {
 
   Comment.create({ email, message, caseId })
   .then((data) => {
-    res.status(201).json(data);
+      Case.findByIdAndUpdate(caseId,{ $push: {comments: data._id}})
+    .then(() => {
+      res.status(201).json(data);
+    })
   })
   .catch((err) => {
     res.status(500).json({
@@ -38,7 +42,6 @@ exports.createNewComment = (req, res) => {
     });
     return;
   });
-
 }
 
 
