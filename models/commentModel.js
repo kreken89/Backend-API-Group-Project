@@ -55,7 +55,7 @@ Comment.create({ email, message, caseId })
       })
       .catch((err) => {
         res.status(500).json({
-          message: 'Something went wrong when updating the case',
+          message: 'Something went wrong when creating the comment',
           err: err.message,
         });
       });
